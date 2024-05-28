@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ryc_desafio_do_modulo_basico/main_page.dart';
+import 'package:ryc_desafio_do_modulo_basico/core/injection/injection.dart';
+import 'package:ryc_desafio_do_modulo_basico/presentation/view/main_page.dart';
 
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 
@@ -12,13 +14,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'to do list',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainPage(),
+      routes: {
+        '/': (context) => const MainPage(),
+      },
     );
   }
 }

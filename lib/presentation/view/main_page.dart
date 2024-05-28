@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ryc_desafio_do_modulo_basico/pages/home_page.dart';
+import 'package:ryc_desafio_do_modulo_basico/presentation/presenter/main_presenter.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -9,18 +9,17 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  
   int selectedItem = 0;
-
-  static const List<Widget> _appScreen = [
-    HomePage(),
-    Text('index 1 out'),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    // TODO(dev): Alterar inicialização para injeção de dependencia
+    var presenter = MainPresenter(widget.createState());
+
     return Scaffold(
       appBar: AppBar(title: const Text('main page')),
-      body: _appScreen[selectedItem],
+      body: presenter.selectPage(selectedItem),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedItem,
         items: const [
