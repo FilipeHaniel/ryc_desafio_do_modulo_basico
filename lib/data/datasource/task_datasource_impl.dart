@@ -22,6 +22,10 @@ class TaskDatasourceImpl implements TaskDatasource {
       log('Erro ao carregar tasks', error: error, stackTrace: stacktrace);
 
       throw TaskFetchException(error.errorMessage);
+    } on DioException catch (error) {
+      log('Erro ao carregar tasks', error: error);
+
+      throw TaskFetchException('${error.response!.statusCode}');
     }
   }
 }

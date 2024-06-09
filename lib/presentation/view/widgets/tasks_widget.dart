@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
 class TasksWidget extends StatelessWidget {
-  const TasksWidget({super.key});
+  final String taskTitle;
+  final int daysRemaining;
+  final bool isExpired;
+
+  const TasksWidget({
+    required this.taskTitle,
+    required this.daysRemaining,
+    required this.isExpired,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +28,14 @@ class TasksWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            const Text('Título da Tarefa'),
+            Text(taskTitle),
             const Spacer(),
-            const Column(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Dias Restantes'),
-                SizedBox(height: 2),
-                Text('20'),
+                const Text('Dias Restantes'),
+                const SizedBox(height: 2),
+                Text(daysRemaining.toString()),
               ],
             ),
             const SizedBox(width: 20),
@@ -34,12 +43,12 @@ class TasksWidget extends StatelessWidget {
               width: 20,
               height: 20,
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: isExpired ? Colors.red : Colors.green,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: const Center(
+              child: Center(
                 child: Icon(
-                  Icons.check,
+                  isExpired ? Icons.close : Icons.check,
                   color: Colors.white,
                   size: 16,
                 ),
