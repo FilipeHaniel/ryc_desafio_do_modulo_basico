@@ -81,7 +81,19 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ],
                 ),
-                Text('Pontuação'),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: FaIcon(
+                        FontAwesomeIcons.chartSimple,
+                        size: 30,
+                        color: Colors.yellow,
+                      ),
+                    ),
+                    Text('10 coins'),
+                  ],
+                ),
               ],
             ),
           ),
@@ -97,7 +109,11 @@ class _MainPageState extends State<MainPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.badge),
-            label: 'information',
+            label: 'register',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_task),
+            label: 'rewards',
           ),
         ],
         onTap: (value) {

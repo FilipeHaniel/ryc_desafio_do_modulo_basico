@@ -14,10 +14,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final taskCubit = getIt<TaskCubit>();
 
+  final _formKey = GlobalKey<FormState>();
+  final _taskTitle = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     taskCubit.fetchAlltasks();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _taskTitle.dispose();
   }
 
   @override
@@ -42,30 +52,37 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'label',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                          child: Form(
+                            key: _formKey,
+                            child: TextFormField(
+                              controller: _taskTitle,
+                              decoration: InputDecoration(
+                                labelText: 'label',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                             ),
                           ),
                         ),
                         const SizedBox(width: 5),
-                        Container(
-                          width: 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 30,
+                        GestureDetector(
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                                size: 30,
+                              ),
                             ),
                           ),
+                          onTap: () => Navigator.of(context).pushNamed('/register'),
                         ),
                       ],
                     ),

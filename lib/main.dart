@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ryc_desafio_do_modulo_basico/core/injection/injection.dart';
 import 'package:ryc_desafio_do_modulo_basico/presentation/view/main_page.dart';
+import 'package:ryc_desafio_do_modulo_basico/presentation/view/pages/register_page.dart';
 
 void main() {
   configureDependencies();
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => const MainPage(),
+        '/register': (context) => const RegisterPage(),
       },
     );
   }
