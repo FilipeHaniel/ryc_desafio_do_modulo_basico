@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:ryc_desafio_do_modulo_basico/presentation/view/pages/home_page.dart';
-import 'package:ryc_desafio_do_modulo_basico/presentation/view/pages/register_page.dart';
 import 'package:ryc_desafio_do_modulo_basico/presentation/view/pages/rewards_page.dart';
 
 class MainPresenter extends Cubit {
@@ -9,7 +8,6 @@ class MainPresenter extends Cubit {
 
   final List<Widget> _appScreen = [
     const HomePage(),
-    const RegisterPage(),
     const RewardsPage(),
   ];
 
@@ -19,8 +17,6 @@ class MainPresenter extends Cubit {
         return _appScreen[0];
       case 1:
         return _appScreen[1];
-      case 2:
-        return _appScreen[2];
       default:
         return Container();
     }

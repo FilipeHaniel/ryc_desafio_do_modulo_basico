@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final String? getTaskTitle;
+
+  const RegisterPage({
+    this.getTaskTitle,
+    super.key,
+  });
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -17,6 +22,10 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void initState() {
+    if (widget.getTaskTitle != null) {
+      _taskTitle.text = widget.getTaskTitle!;
+    }
+
     super.initState();
   }
 
@@ -42,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: TextFormField(
                 controller: _taskTitle,
                 decoration: InputDecoration(
-                  labelText: 'título da tarefa',
+                  labelText: 'titulo da tarefa',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),

@@ -108,10 +108,6 @@ class _MainPageState extends State<MainPage> {
             label: 'home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.badge),
-            label: 'register',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.add_task),
             label: 'rewards',
           ),

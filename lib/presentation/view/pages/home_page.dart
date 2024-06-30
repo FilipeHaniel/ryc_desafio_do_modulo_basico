@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ryc_desafio_do_modulo_basico/core/injection/injection.dart';
 import 'package:ryc_desafio_do_modulo_basico/presentation/application/task_cubit.dart';
+import 'package:ryc_desafio_do_modulo_basico/presentation/view/pages/register_page.dart';
 import 'package:ryc_desafio_do_modulo_basico/presentation/view/widgets/tasks_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -62,28 +63,38 @@ class _HomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
+                              onChanged: (value) {
+                                _taskTitle.text = value;
+                              },
                             ),
                           ),
                         ),
                         const SizedBox(width: 5),
                         GestureDetector(
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.add,
-                                color: Colors.white,
-                                size: 30,
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
                               ),
                             ),
-                          ),
-                          onTap: () => Navigator.of(context).pushNamed('/register'),
-                        ),
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) => Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 30),
+                                  child: RegisterPage(getTaskTitle: _taskTitle.text),
+                                ),
+                              );
+                            }),
                       ],
                     ),
                   ),
