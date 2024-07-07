@@ -16,4 +16,9 @@ class TaskUsecaseImpl implements TaskUsecase {
 
     return result;
   }
+
+  @override
+  Future<void> postTask(TaskEntity taskEntity) async {
+    await _taskRepository.postTask(taskEntity);
+  }
 }

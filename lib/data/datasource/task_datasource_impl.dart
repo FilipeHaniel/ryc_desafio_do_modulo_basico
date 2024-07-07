@@ -28,4 +28,19 @@ class TaskDatasourceImpl implements TaskDatasource {
       throw TaskFetchException('${error.response!.statusCode}');
     }
   }
+
+  @override
+  Future<void> postTask(TaskModel taskModel) async {
+    try {
+      final task = taskModel.toJson();
+
+      await Dio().post(
+        'https://tyc-desafio-modulo-basico-default-rtdb.firebaseio.com/tasks.json',
+        data: task,
+      );
+    } on Exception catch (error, stacktrace) {
+      log('Erro ao cadastrar task', error: error, stackTrace: stacktrace);
+      throw Exception();
+    }
+  }
 }

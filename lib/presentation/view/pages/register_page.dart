@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ryc_desafio_do_modulo_basico/core/injection/injection.dart';
+import 'package:ryc_desafio_do_modulo_basico/domain/entity/task_entiy.dart';
+import 'package:ryc_desafio_do_modulo_basico/presentation/application/task_cubit.dart';
 
 class RegisterPage extends StatefulWidget {
   final String? getTaskTitle;
@@ -14,6 +17,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final taskCubit = getIt<TaskCubit>();
+
   final _formKey = GlobalKey<FormState>();
 
   final _taskTitle = TextEditingController();
@@ -82,12 +87,19 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 50),
-              child: FaIcon(
-                FontAwesomeIcons.solidFloppyDisk,
-                size: 50,
-                color: Colors.black,
+            Padding(
+              padding: const EdgeInsets.only(top: 50),
+              child: GestureDetector(
+                child: const FaIcon(
+                  FontAwesomeIcons.solidFloppyDisk,
+                  size: 50,
+                  color: Colors.black,
+                ),
+                onTap: () {
+                  final isValid = _formKey.currentState?.validate() ?? false;
+
+                  
+                },
               ),
             ),
           ],

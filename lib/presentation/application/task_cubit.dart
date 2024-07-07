@@ -31,4 +31,8 @@ class TaskCubit extends Cubit<TaskState> {
       emit(TaskState.error(error: error));
     }
   }
+
+  Future<void> registerTask(TaskEntity taskEntity) async {
+    await _taskUsecase.postTask(taskEntity);
+  }
 }

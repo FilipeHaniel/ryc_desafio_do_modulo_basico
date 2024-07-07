@@ -15,7 +15,7 @@ class TaskModel extends TaskEntity {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'taskTitle': taskTitle,
       'daysRemaining': daysRemaining,
