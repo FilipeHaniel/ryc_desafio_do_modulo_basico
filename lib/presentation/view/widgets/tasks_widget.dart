@@ -28,9 +28,9 @@ class _TasksWidgetState extends State<TasksWidget> {
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.green,
-            width: 2, // Largura da borda
+            width: 2,
           ),
-          borderRadius: BorderRadius.circular(8.0), // Bordas arredondadas
+          borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

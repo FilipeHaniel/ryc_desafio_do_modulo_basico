@@ -71,30 +71,33 @@ class _HomePageState extends State<HomePage> {
                         ),
                         const SizedBox(width: 5),
                         GestureDetector(
-                            child: Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: Colors.green,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                                size: 30,
                               ),
                             ),
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) => Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 30),
-                                  child: RegisterPage(getTaskTitle: _taskTitle.text),
-                                ),
-                              );
-                            }),
+                          ),
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 30),
+                                child:
+                                    RegisterPage(getTaskTitle: _taskTitle.text),
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
