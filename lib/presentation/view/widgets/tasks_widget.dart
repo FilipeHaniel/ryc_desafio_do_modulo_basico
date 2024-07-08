@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 
 class TasksWidget extends StatefulWidget {
   final String taskTitle;
-  final int daysRemaining;
-  final bool isExpired;
+  final DateTime taskDate;
 
   const TasksWidget({
     required this.taskTitle,
-    required this.daysRemaining,
-    required this.isExpired,
+    required this.taskDate,
     super.key,
   });
 
@@ -21,6 +19,12 @@ class _TasksWidgetState extends State<TasksWidget> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    Duration difference = widget.taskDate.difference(now);
+    int daysRemaining = difference.inDays;
+
+    final expiredDays = daysRemaining < 0;
+
     return GestureDetector(
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -49,7 +53,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                 children: [
                   const Text('Dias Restantes'),
                   const SizedBox(height: 2),
-                  Text(widget.daysRemaining.toString()),
+                  Text('$daysRemaining'),
                 ],
               ),
               const SizedBox(width: 20),
@@ -57,12 +61,12 @@ class _TasksWidgetState extends State<TasksWidget> {
                 width: 20,
                 height: 20,
                 decoration: BoxDecoration(
-                  color: widget.isExpired ? Colors.red : Colors.green,
+                  color: expiredDays ? Colors.red : Colors.green,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Center(
                   child: Icon(
-                    widget.isExpired ? Icons.close : Icons.check,
+                    expiredDays ? Icons.close : Icons.check,
                     color: Colors.white,
                     size: 16,
                   ),

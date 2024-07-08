@@ -23,7 +23,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final _taskTitle = TextEditingController();
   final _taskDescription = TextEditingController();
-  final _taskDeadline = TextEditingController();
+  final _taskDate = TextEditingController();
+
+  DateTime? _selectedDate;
 
   @override
   void initState() {
@@ -40,7 +42,23 @@ class _RegisterPageState extends State<RegisterPage> {
 
     _taskTitle.dispose();
     _taskDescription.dispose();
-    _taskDeadline.dispose();
+    _taskDate.dispose();
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        _taskDate.text = "${_selectedDate!.toLocal()}".split(' ')[0];
+      });
+    }
   }
 
   @override
@@ -78,13 +96,15 @@ class _RegisterPageState extends State<RegisterPage> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: TextFormField(
-                controller: _taskDeadline,
+                controller: _taskDate,
                 decoration: InputDecoration(
                   labelText: 'data limite',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
+                readOnly: true,
+                onTap: () => _selectDate(context),
               ),
             ),
             Padding(
@@ -98,7 +118,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 onTap: () {
                   final isValid = _formKey.currentState?.validate() ?? false;
 
-                  
+                  if (isValid && _selectedDate != null) {
+                    final taskEntity = TaskEntity(
+                      taskTitle: _taskTitle.text,
+                      taskDescription: _taskDescription.text,
+                      taskDate: _selectedDate!,
+                    );
+
+                    taskCubit.registerTask(taskEntity);
+
+                    Navigator.pop(context);
+                  }
                 },
               ),
             ),

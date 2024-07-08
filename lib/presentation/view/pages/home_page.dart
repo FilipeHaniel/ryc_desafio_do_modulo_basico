@@ -108,8 +108,7 @@ class _HomePageState extends State<HomePage> {
                       itemCount: tasks.length,
                       itemBuilder: (context, index) => TasksWidget(
                         taskTitle: tasks[index].taskTitle,
-                        daysRemaining: tasks[index].daysRemaining,
-                        isExpired: tasks[index].isExpired,
+                        taskDate: tasks[index].taskDate,
                       ),
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 10),

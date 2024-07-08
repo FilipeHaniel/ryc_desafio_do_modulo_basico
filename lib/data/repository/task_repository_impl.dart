@@ -22,8 +22,8 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<void> postTask(TaskEntity taskEntity) async {
     final task = TaskModel(
       taskTitle: taskEntity.taskTitle,
-      daysRemaining: taskEntity.daysRemaining,
-      isExpired: taskEntity.isExpired,
+      taskDescription: taskEntity.taskDescription,
+      taskDate: taskEntity.taskDate,
     );
 
     await _taskDatasource.postTask(task);
