@@ -33,6 +33,15 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   Future<void> registerTask(TaskEntity taskEntity) async {
-    await _taskUsecase.postTask(taskEntity);
+    try {
+      emit(TaskState.loading());
+      await _taskUsecase.postTask(taskEntity);
+      final tasks = await _taskUsecase.getTasks();
+
+      emit(TaskState.success(tasks: tasks));
+    } on TaskFetchException catch (error) {
+      log('ocorreeu um erro ao registrar task');
+      emit(TaskState.error(error: error));
+    }
   }
 }

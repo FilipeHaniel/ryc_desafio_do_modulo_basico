@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ryc_desafio_do_modulo_basico/core/injection/injection.dart';
+import 'package:ryc_desafio_do_modulo_basico/presentation/application/task_cubit.dart';
+import 'package:ryc_desafio_do_modulo_basico/presentation/presenter/main_presenter.dart';
 
 class TasksWidget extends StatefulWidget {
   final String taskTitle;
@@ -15,6 +19,8 @@ class TasksWidget extends StatefulWidget {
 }
 
 class _TasksWidgetState extends State<TasksWidget> {
+  final taskCubit = getIt<TaskCubit>();
+
   var isFinally = false;
 
   @override
@@ -25,7 +31,19 @@ class _TasksWidgetState extends State<TasksWidget> {
 
     final expiredDays = daysRemaining < 0;
 
+    if (expiredDays) {
+      context.read<MainPresenter>().removeRedHeart();
+    }
+
     return GestureDetector(
+      onTap: !isFinally
+          ? () {
+              setState(() {
+                isFinally = true;
+              });
+              context.read<MainPresenter>().incrementCoin();
+            }
+          : null,
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 65,
@@ -44,16 +62,27 @@ class _TasksWidgetState extends State<TasksWidget> {
                 widget.taskTitle,
                 style: TextStyle(
                   decoration: isFinally ? TextDecoration.lineThrough : null,
-                  color: isFinally ? Colors.green : Colors.black,
+                  color: expiredDays ? Colors.red : null,
                 ),
               ),
               const Spacer(),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Dias Restantes'),
+                  Text(
+                    'Dias Restantes',
+                    style: TextStyle(
+                      color: expiredDays ? Colors.red : null,
+                    ),
+                  ),
                   const SizedBox(height: 2),
-                  Text('$daysRemaining'),
+                  Text(
+                    '$daysRemaining',
+                    style: TextStyle(
+                      decoration: isFinally ? TextDecoration.lineThrough : null,
+                      color: expiredDays ? Colors.red : null,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(width: 20),
@@ -76,11 +105,6 @@ class _TasksWidgetState extends State<TasksWidget> {
           ),
         ),
       ),
-      onTap: () {
-        setState(() {
-          isFinally = true;
-        });
-      },
     );
   }
 }
