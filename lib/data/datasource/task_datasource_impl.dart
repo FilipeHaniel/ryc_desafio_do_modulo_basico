@@ -25,14 +25,6 @@ class TaskDatasourceImpl implements TaskDatasource {
         return TaskModel.fromJson(taskData);
       }).toList();
 
-      // final result = httpClient.data['tasksList']
-      //     .map<TaskModel>((tasks) => TaskModel.fromJson(tasks))
-      //     .toList();
-
-      // httpClient.data.map<TaskModel>((tasks) {
-      //   listTasks.add(TaskModel.fromJson(tasks));
-      // });
-
       return tasks;
     } on TaskFetchException catch (error, stacktrace) {
       log('Erro ao carregar tasks', error: error, stackTrace: stacktrace);

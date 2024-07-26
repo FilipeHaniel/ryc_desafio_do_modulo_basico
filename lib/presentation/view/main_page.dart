@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ryc_desafio_do_modulo_basico/presentation/presenter/main_presenter.dart';
 
 class MainPage extends StatefulWidget {
@@ -27,7 +28,8 @@ class _MainPageState extends State<MainPage> {
       create: (context) => presenter,
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 100,
+          toolbarHeight: 150,
+          backgroundColor: Colors.deepPurple[400],
           leading: Padding(
             padding: const EdgeInsets.only(left: 8),
             child: Container(
@@ -36,6 +38,9 @@ class _MainPageState extends State<MainPage> {
               decoration: const BoxDecoration(
                 color: Colors.blue,
                 shape: BoxShape.circle,
+              ),
+              child: const Center(
+                child: FaIcon(FontAwesomeIcons.user),
               ),
             ),
           ),
@@ -71,22 +76,33 @@ class _MainPageState extends State<MainPage> {
                       );
                     },
                   ),
-                  Row(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: FaIcon(
-                          FontAwesomeIcons.chartSimple,
-                          size: 30,
-                          color: Colors.yellow,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 50,
+                          width: 50,
+                          child: Image.asset('assets/images/icon_coin.png'),
                         ),
-                      ),
-                      BlocBuilder<MainPresenter, int>(
-                        builder: (context, coin) {
-                          return Text('$coin');
-                        },
-                      ),
-                    ],
+                        BlocBuilder<MainPresenter, int>(
+                          builder: (context, coin) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(
+                                '$coin',
+                                style: GoogleFonts.poppins(
+                                  textStyle: const TextStyle(color: Colors.white10),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -95,14 +111,17 @@ class _MainPageState extends State<MainPage> {
         ),
         body: presenter.selectPage(selectedItem),
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.deepPurple[400],
+          fixedColor: Colors.white,
+          unselectedItemColor: Colors.white70,
           currentIndex: selectedItem,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.heart_broken),
+              icon: FaIcon(FontAwesomeIcons.heart),
               label: 'home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.add_task),
+              icon: FaIcon(FontAwesomeIcons.pumpMedical),
               label: 'rewards',
             ),
           ],

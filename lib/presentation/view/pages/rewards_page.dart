@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ryc_desafio_do_modulo_basico/presentation/presenter/main_presenter.dart';
 
 class RewardsPage extends StatelessWidget {
@@ -26,23 +27,40 @@ class RewardsPage extends StatelessWidget {
                     width: 70,
                     child: Image.asset('assets/images/elixir.png'),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Elixir'),
-                          Text('Restaura um ponto de vida'),
+                          Text(
+                            'Elixir',
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(color: Colors.black),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                          Text(
+                            'Restaura um ponto de vida',
+                            style: GoogleFonts.quicksand(
+                              textStyle:
+                                  const TextStyle(color: Colors.grey),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
                   GestureDetector(
-                    child: const Column(
+                    child: Column(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(top: 50),
                           child: FaIcon(
                             FontAwesomeIcons.cartFlatbed,
@@ -50,7 +68,15 @@ class RewardsPage extends StatelessWidget {
                             color: Colors.blue,
                           ),
                         ),
-                        Text('5 coins'),
+                        Text(
+                          '5 coins',
+                          style: GoogleFonts.quicksand(
+                            textStyle: const TextStyle(color: Colors.grey),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            fontStyle: FontStyle.normal,
+                          ),
+                        ),
                       ],
                     ),
                     onTap: () {
@@ -66,4 +92,3 @@ class RewardsPage extends StatelessWidget {
     );
   }
 }
-

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ryc_desafio_do_modulo_basico/core/injection/injection.dart';
 import 'package:ryc_desafio_do_modulo_basico/core/utils/validators.dart';
 import 'package:ryc_desafio_do_modulo_basico/presentation/application/task_cubit.dart';
@@ -36,32 +37,32 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: _taskCubit,
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Task Manager')),
-        body: BlocListener<TaskCubit, TaskState>(
-          listener: (context, state) {
-            state.maybeWhen(
-              success: (tasks) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Tarefa registrada com sucesso!'),
-                  ),
-                );
-              },
-              error: (error) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Erro: $error')),
-                );
-              },
-              orElse: () {},
-            );
-          },
-          child: BlocBuilder<TaskCubit, TaskState>(
-            builder: (context, state) {
-              return state.when(
-                initial: () => const Center(child: CircularProgressIndicator()),
-                loading: () => const Center(child: CircularProgressIndicator()),
-                success: (tasks) => Padding(
+      child: BlocListener<TaskCubit, TaskState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            success: (tasks) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Tarefa registrada com sucesso!'),
+                ),
+              );
+            },
+            error: (error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Erro: $error')),
+              );
+            },
+            orElse: () {},
+          );
+        },
+        child: BlocBuilder<TaskCubit, TaskState>(
+          builder: (context, state) {
+            return state.when(
+              initial: () => const Center(child: CircularProgressIndicator()),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              success: (tasks) => RefreshIndicator(
+                onRefresh: _taskCubit.fetchAlltasks,
+                child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,28 +89,21 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(width: 5),
                             GestureDetector(
                               onTap: () async {
-                                final result = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RegisterPage(
-                                      getTaskTitle: _taskTitle.text,
-                                    ),
+                                final result = await showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 30),
+                                    child: RegisterPage(
+                                        getTaskTitle: _taskTitle.text),
                                   ),
                                 );
+
                                 if (result == true) {
                                   _taskCubit.fetchAlltasks();
                                 }
+
                                 _taskTitle.clear();
-                                // showModalBottomSheet(
-                                //   context: context,
-                                //   builder: (context) => Padding(
-                                //     padding: const EdgeInsets.symmetric(
-                                //         vertical: 30),
-                                //     child: RegisterPage(
-                                //         getTaskTitle: _taskTitle.text),
-                                //   ),
-                                // );
-                                // _taskTitle.clear();
                               },
                               child: Container(
                                 width: 30,
@@ -130,7 +124,15 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                      const Text('Digite o título da tarefa'),
+                      Text(
+                        'Digite o título da tarefa',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(color: Colors.black),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FontStyle.normal,
+                        ),
+                      ),
                       const SizedBox(height: 10),
                       Expanded(
                         child: ListView.separated(
@@ -146,14 +148,14 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                error: (error) => Center(
-                  child: Text(
-                    error.toString(),
-                  ),
+              ),
+              error: (error) => Center(
+                child: Text(
+                  error.toString(),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

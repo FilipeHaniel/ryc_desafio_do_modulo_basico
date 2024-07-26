@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ryc_desafio_do_modulo_basico/core/injection/injection.dart';
 import 'package:ryc_desafio_do_modulo_basico/core/utils/validators.dart';
@@ -24,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _taskDate = TextEditingController();
 
   DateTime? _selectedDate;
+  final DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
 
   @override
   void initState() {
@@ -52,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        _taskDate.text = "${_selectedDate!.toLocal()}".split(' ')[0];
+        _taskDate.text = _dateFormat.format(_selectedDate!);
       });
     }
   }
@@ -109,10 +111,10 @@ class _RegisterPageState extends State<RegisterPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 50),
                 child: GestureDetector(
-                  child: const FaIcon(
+                  child: FaIcon(
                     FontAwesomeIcons.solidFloppyDisk,
                     size: 50,
-                    color: Colors.black,
+                    color: Colors.purple[800],
                   ),
                   onTap: () {
                     final isValid = _formKey.currentState?.validate() ?? false;

@@ -10,7 +10,7 @@ class TaskModel extends TaskEntity {
   factory TaskModel.fromJson(Map<String, dynamic> json) {
 
     if (json['taskDate'] == null) {
-      throw ArgumentError('taskDate is required and must not be null');
+      throw ArgumentError('taskDate não pode ser nulo');
     }
 
     return TaskModel(

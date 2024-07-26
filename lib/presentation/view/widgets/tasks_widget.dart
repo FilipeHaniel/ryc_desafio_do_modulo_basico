@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ryc_desafio_do_modulo_basico/core/injection/injection.dart';
 import 'package:ryc_desafio_do_modulo_basico/presentation/application/task_cubit.dart';
 import 'package:ryc_desafio_do_modulo_basico/presentation/presenter/main_presenter.dart';
@@ -49,7 +50,7 @@ class _TasksWidgetState extends State<TasksWidget> {
         height: 65,
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.green,
+            color: expiredDays ? Colors.red : Colors.green,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(8.0),
@@ -60,9 +61,14 @@ class _TasksWidgetState extends State<TasksWidget> {
             children: [
               Text(
                 widget.taskTitle,
-                style: TextStyle(
+                style: GoogleFonts.quicksand(
+                  textStyle:
+                      TextStyle(color: expiredDays ? Colors.red : Colors.grey),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  fontStyle: FontStyle.normal,
                   decoration: isFinally ? TextDecoration.lineThrough : null,
-                  color: expiredDays ? Colors.red : null,
+                  // color: expiredDays ? Colors.red : null,
                 ),
               ),
               const Spacer(),
@@ -71,16 +77,27 @@ class _TasksWidgetState extends State<TasksWidget> {
                 children: [
                   Text(
                     'Dias Restantes',
-                    style: TextStyle(
-                      color: expiredDays ? Colors.red : null,
+                    style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
+                          color: expiredDays ? Colors.red : Colors.grey),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      fontStyle: FontStyle.normal,
+                      decoration: isFinally ? TextDecoration.lineThrough : null,
+                      // color: expiredDays ? Colors.red : null,
                     ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     '$daysRemaining',
-                    style: TextStyle(
+                    style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
+                          color: expiredDays ? Colors.red : Colors.grey),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      fontStyle: FontStyle.normal,
                       decoration: isFinally ? TextDecoration.lineThrough : null,
-                      color: expiredDays ? Colors.red : null,
+                      // color: expiredDays ? Colors.red : null,
                     ),
                   ),
                 ],
